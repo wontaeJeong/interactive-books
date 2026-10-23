@@ -1,0 +1,12 @@
+{
+  "title": "LLM 추론 시스템",
+  "subtitle": "토큰에서 서빙 엔진까지",
+  "description": "컨텍스트 윈도우, KV 캐시, 배치 처리 등 모델 서빙의 핵심을 실험하며 배웁니다.",
+  "category": "engineering",
+  "level": "기초·심화",
+  "cover": "ink",
+  "glyph": "∑",
+  "volume": 2,
+  "order": 2,
+  "status": "published"
+}

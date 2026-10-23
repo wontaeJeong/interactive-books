@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import BookExplorer from '../components/BookExplorer';
+import { categories, chapterSlug, getLibrary, href } from '../lib/catalog';
+const library = await getLibrary();
+const previews = library.map(book => ({
+  slug: book.slug, title: book.title, subtitle: book.subtitle, description: book.description,
+  category: book.category, categoryLabel: categories[book.category], level: book.level,
+  cover: book.cover, glyph: book.glyph, volume: book.volume,
+  chapterCount: book.chapters.length,
+  chapterIds: book.chapters.map(c => `${book.slug}/${chapterSlug(c)}`),
+  href: href(`books/${book.slug}/`),
+}));
+const chapterCount = library.reduce((sum, book) => sum + book.chapters.length, 0);
+---
+<Base>
+  <div class="shell">
+    <section class="hero">
+      <div class="hero-copy"><div class="hero-overline"><span class="tiny-rule"></span> AN INTERACTIVE READING COLLECTION <span class="hero-edition">VOL. 2026</span></div>
+        <h1>읽는 것을 넘어,<br /><em>직접 이해하는</em> 책장.</h1>
+        <p>복잡한 개념도 직접 움직이면 명확해집니다. 이곳의 책은 읽고, 질문하고, 계산하며 배울 수 있도록 만들어졌습니다.</p>
+        <a class="hero-link" href="#library">책장 둘러보기 <span aria-hidden="true">↘</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="decor-orbit orbit-one"></div><div class="decor-orbit orbit-two"></div><div class="shelf-books"><span class="spine spine-one">ARTIFICIAL<br/>INTELLIGENCE</span><span class="spine spine-two">INFERENCE<br/>SYSTEMS</span><span class="spine spine-three">HOME<br/>LITERACY</span></div><span class="hero-art-caption">A LIBRARY OF THINGS WORTH LEARNING</span></div>
+    </section>
+    <div class="stats-row" aria-label="책장 현황"><span><strong>{library.length}</strong> 권의 책</span><span><strong>{chapterCount}</strong> 개 챕터</span><span><strong>∞</strong> 직접 해보는 배움</span></div>
+    <section class="library-section" id="library">
+      <div class="section-header"><div><div class="section-kicker">THE COLLECTION</div><h2>나의 책장</h2></div><p>관심 있는 분야를 골라 한 페이지씩 탐험해보세요.</p></div>
+      <BookExplorer client:load books={previews} />
+    </section>
+  </div>
+</Base>

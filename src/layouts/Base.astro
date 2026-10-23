@@ -1,0 +1,54 @@
+---
+import '../styles/global.css';
+import { href } from '../lib/catalog';
+interface Props { title?: string; description?: string }
+const { title = '생각의 서가', description = '읽는 것을 넘어 직접 이해하는 인터랙티브 책장' } = Astro.props;
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f6f3ec" />
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem('interactive-books:theme');
+          if (stored === 'dark' || stored === 'light') document.documentElement.dataset.theme = stored;
+        } catch (_) {}
+      })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href={href('favicon.svg')} />
+    <title>{title === '생각의 서가' ? title : `${title} — 생각의 서가`}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href={href()} aria-label="생각의 서가 홈">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>생각의 서가</span>
+        </a>
+        <nav class="header-nav" aria-label="상단 탐색">
+          <a href={href()}>전체 책</a>
+          <a href={href('about/')}>이 서가에 대해</a>
+          <button id="theme-toggle" type="button" class="theme-toggle" aria-label="색상 모드 전환" title="색상 모드 전환">◐</button>
+        </nav>
+      </div>
+    </header>
+    <main><slot /></main>
+    <footer class="site-footer">
+      <div class="shell footer-inner"><span>생각의 서가 <span class="muted">© 2026</span></span><span>읽고, 실험하고, 이해하다.</span></div>
+    </footer>
+    <script>
+      const button = document.querySelector<HTMLButtonElement>('#theme-toggle');
+      button?.addEventListener('click', () => {
+        const isDark = document.documentElement.dataset.theme === 'dark' ||
+          (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+        const theme = isDark ? 'light' : 'dark';
+        document.documentElement.dataset.theme = theme;
+        try { localStorage.setItem('interactive-books:theme', theme); } catch (_) {}
+      });
+    </script>
+  </body>
+</html>

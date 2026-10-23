@@ -24,21 +24,15 @@ npm run dev
 
 ## GitHub Pages 배포
 
-1. GitHub에서 `wontaeJeong/interactive-books` **빈 공개 저장소**를 생성합니다. (README, .gitignore는 GitHub에서 자동 생성하지 않기.)
-2. 현재 프로젝트 폴더에서:
+프로젝트 저장소: https://github.com/wontaeJeong/interactive-books
 
-```bash
-git init -b main
-git add .
-git commit -m "feat: initialize interactive bookshelf"
-git remote add origin https://github.com/wontaeJeong/interactive-books.git
-git push -u origin main
-```
+배포 예정 주소: https://wontaeJeong.github.io/interactive-books/
 
-3. GitHub → Settings → Pages → Build and deployment → Source에서 **GitHub Actions**를 선택합니다.
-4. Actions의 `Publish bookshelf to GitHub Pages`가 성공하면 사이트가 출간됩니다.
+이 저장소는 `main` 브랜치에 변경 사항이 올라오면 GitHub Actions에서 Astro 정적 사이트를 빌드하고 GitHub Pages에 출간하도록 구성되어 있습니다.
 
-다른 사용자나 다른 레포 이름으로 변경할 경우 `astro.config.mjs`의 `site`와 `REPO_NAME`을 수정하세요.
+**최초 1회 설정:** [Settings → Pages](https://github.com/wontaeJeong/interactive-books/settings/pages)의 Build and deployment → Source 항목을 **GitHub Actions**로 선택합니다. 이후 변경사항은 자동으로 배포됩니다.
+
+배포 실행 결과: [Actions](https://github.com/wontaeJeong/interactive-books/actions/workflows/pages.yml)
 
 ## 구성
 

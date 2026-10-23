@@ -1,0 +1,12 @@
+{
+  "title": "생성형 AI 첫걸음",
+  "subtitle": "프롬프트에서 모델 이해까지",
+  "description": "언어 모델의 기초부터 프롬프트 설계까지, 퀴즈로 이해를 점검하는 입문서.",
+  "category": "ai",
+  "level": "입문",
+  "cover": "iris",
+  "glyph": "✳",
+  "volume": 1,
+  "order": 1,
+  "status": "published"
+}

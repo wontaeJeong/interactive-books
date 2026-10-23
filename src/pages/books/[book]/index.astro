@@ -1,0 +1,23 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { categories, chapterSlug, getLibrary, href, type LibraryBook } from '../../../lib/catalog';
+export async function getStaticPaths() {
+  const books = await getLibrary();
+  return books.map(book => ({ params: { book: book.slug }, props: { book } }));
+}
+const { book } = Astro.props as { book: LibraryBook };
+---
+<Base title={book.title} description={book.description}>
+  <div class="shell book-detail">
+    <a class="back-link" href={href()}>← 전체 책장</a>
+    <div class="detail-head">
+      <div class={`book-cover detail-cover ${book.cover}`}><div class="cover-no">COLLECTION / {String(book.volume).padStart(2,'0')}</div><div class="cover-art" aria-hidden="true"><span>{book.glyph}</span></div><div class="cover-bottom"><span>{book.title}</span><small>{book.subtitle}</small></div></div>
+      <div class="detail-copy"><div class="section-kicker">{categories[book.category]} / {book.level}</div><h1>{book.title}</h1><div class="detail-subtitle">{book.subtitle}</div><p>{book.description}</p><div class="detail-stats"><span>{book.chapters.length}개 챕터</span><span>인터랙티브 학습</span><span>무료 공개</span></div>
+      {book.chapters[0] && <a class="primary-link" href={href(`books/${book.slug}/${chapterSlug(book.chapters[0])}/`)}>첫 챕터 읽기 <span>↗</span></a>}
+      </div>
+    </div>
+    <section class="contents-section"><div class="section-kicker">TABLE OF CONTENTS</div><h2>목차</h2><div class="chapter-list">
+      {book.chapters.map(chapter => <a class="chapter-row" href={href(`books/${book.slug}/${chapterSlug(chapter)}/`)}><span class="chapter-index">{String(chapter.data.chapter).padStart(2,'0')}</span><span class="chapter-info"><strong>{chapter.data.title}</strong><span>{chapter.data.description}</span></span><span class="chapter-time">{chapter.data.minutes}분 · 읽기 <span aria-hidden="true">↗</span></span></a>)}
+    </div></section>
+  </div>
+</Base>

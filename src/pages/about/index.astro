@@ -1,0 +1,11 @@
+---
+import Base from '../../layouts/Base.astro';
+import { href } from '../../lib/catalog';
+---
+<Base title="이 서가에 대해">
+  <div class="shell narrow-page"><div class="section-kicker">ABOUT THE LIBRARY</div><h1>지식을 보관하는 대신<br/><em>경험으로 남기는 곳</em></h1>
+  <p>이 책장은 Markdown·MDX로 집필한 콘텐츠와 재사용 가능한 인터랙티브 컴포넌트를 한 저장소에서 관리하는 개인 디지털 서가입니다.</p>
+  <p>책의 본문은 정적으로 빠르게 읽을 수 있고, 퀴즈·시뮬레이터만 필요할 때 브라우저에서 실행됩니다. 읽음 여부는 현재 브라우저의 로컬 저장소에 저장되므로 기기 간 동기화되지 않습니다.</p>
+  <a class="back-link" href={href()}>← 책장으로 돌아가기</a>
+  </div>
+</Base>
